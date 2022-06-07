@@ -7,7 +7,7 @@ const html = new Proxy({}, {
 
 const { main, h1, button } = html
 
-export default ({ node }) => app({
+export const main = ({ node }) => app({
   init: () => 0,
   view: state =>
     main([
