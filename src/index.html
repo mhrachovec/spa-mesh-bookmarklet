@@ -4,12 +4,12 @@
 <body>
   <script type='module'>
     (async () => {
-      const { main } = await import('./app/index.js')
+      const { theApp } = await import('./app/index.js')
 
       const node = document.createElement('main')
       document.body.appendChild(node)
 
-      main({ node })
+      theApp({ node })
     })()
   </script>
   <script nomodule src="nomodule.js" defer></script>
