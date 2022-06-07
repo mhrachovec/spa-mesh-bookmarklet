@@ -5,6 +5,9 @@
     get: (target, name) => name === 'text' ? text : (attrs = {}, child) => !child ? h(name, {}, useText(attrs)) : h(name, attrs, useText(child))
   })
 
+  const node = document.createElement('main')
+  document.body.appendChild(node)
+
   const { main, h1, button } = html
   app({
     init: () => 0,
@@ -14,6 +17,6 @@
         button({ onclick: state => state - 1 }, text('-')),
         button({ onclick: state => state + 1 }, text('+'))
       ]),
-    node: document.getElementById('app')
+    node
   })
 })()
