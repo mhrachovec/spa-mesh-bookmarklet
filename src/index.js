@@ -1,5 +1,5 @@
 (async () => {
-  const { h, app } = import('https://unpkg.com/hyperapp@2.0.22/index.js?module')
+  import { h, app } from 'https://unpkg.com/hyperapp@2.0.22/index.js?module'
 
   app({
     init: () => 0,
