@@ -1,1 +1,1 @@
-document.getElementById('app').innerHTML = '<h1>Use a modern browser.</h1>'
+document.getElementById('app').innerHTML = '<h1>Use a modern browser to develop this application.</h1>'

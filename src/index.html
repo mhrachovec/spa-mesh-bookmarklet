@@ -2,16 +2,7 @@
 <html>
 
 <body>
-  <script type='module'>
-    (async () => {
-      const { theApp } = await import('./app/index.js')
-
-      const node = document.createElement('main')
-      document.body.appendChild(node)
-
-      theApp({ node })
-    })()
-  </script>
+  <script src='index.js'></script>
   <script nomodule src="nomodule.js" defer></script>
 </body>
 
