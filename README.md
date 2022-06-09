@@ -10,6 +10,6 @@
   ```
 
 ## Versions
-- [v0.1-counter](https://rawcdn.githack.com/mhrachovec/spa-mesh-scriptlet/v0.1-counter/src/index.html)
+- [v0.1-counter](https://rawcdn.githack.com/mhrachovec/spa-mesh-bookmarklet/v0.1-counter/src/index.html?min=1)
   - definition of application structure
   - trivial React-counter application
