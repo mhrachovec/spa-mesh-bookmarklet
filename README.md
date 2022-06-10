@@ -15,3 +15,4 @@
   - trivial React-counter application
 
 ## Test
+- foo bar
