@@ -1,8 +1,11 @@
 (async function (baseUrl) {
   if (document.getElementById('spa-mesh')) return
 
-  const preload = ['lib/hyperapp/v2.0.22', 'lib/hyperapp/html', 'app/components/html', 'app/views/app']
-  const [{ main }] = await Promise.all(['app/index', ...preload].map(i => import (`${baseUrl}${i}.js?min=1`)))
+  const moduleName = path => `${baseUrl}${path}.js?min=1`
+  const { registerModulesAsync, resolveService } = await import(moduleName('lib/simple-di'))
+  await registerModulesAsync(['app/index', 'lib/hyperapp/v2.0.22', 'lib/hyperapp/html', 'app/components/html', 'app/views/app']
+    .map(moduleName))
+  const main = resolveService('main')
 
   const style = document.createElement('link')
   style.href = `${baseUrl}app/index.css?min=1`
@@ -15,4 +18,4 @@
   document.body.appendChild(node)
 
   main({ node })
-})(document.currentScript.src.slice(0, -"index.js?min=1".length)).catch(console.log);
+})(document.currentScript.src.slice(0, -"index.js?min=1".length)).catch((...err) => console.log(`[${(new Date).toISOString()}] SPA-mesh:`, ...err));
