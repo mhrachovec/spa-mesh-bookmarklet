@@ -1,21 +1,35 @@
 (async function (baseUrl) {
-  if (document.getElementById('spa-mesh')) return
+  const mainElementId = 'mwwnxt-spa-mesh'
+  if (document.getElementById(mainElementId)) throw new Error('application already loaded')
 
-  const moduleName = path => `${baseUrl}${path}.js?min=1`
-  const { registerModulesAsync, resolveService } = await import(moduleName('lib/simple-di'))
-  await registerModulesAsync(['app/index', 'lib/hyperapp/v2.0.22', 'lib/hyperapp/html', 'app/components/html', 'app/views/app']
-    .map(moduleName))
-  const main = resolveService('main')
+  const moduleUrl = (path, ext) => `${baseUrl}${path}${ext}`
+  const getModules = (path, subpaths) => subpaths.map(subpath => Array.isArray(subpath)
+    ? getModules(`${path}/${subpath[0]}`, subpath[1]) : `${path}/${subpath}`
+  ).flat()
+
+  // const { registerModulesAsync, resolveService } = await import(moduleName('/lib/simple-di', '.js'))
+  // await registerModulesAsync(['/app/index', ...getModules('', preload)].map(m => moduleName(m, '.js')))
+  // const main = resolveService('main')
+  const modules = [...getModules('', [
+    ['lib', [
+      ['hyperapp', ['v2.0.22', 'html',
+        ['effects', ['action', 'state-storage']]
+      ]],
+      'local-storage'
+    ]],
+    ['app', ['components/html', 'effects/state-storage', 'views/app', 'actions/counter']]
+  ]), '/app/index'].map(m => import(moduleUrl(m, '.js')))
+  const [{ main }] = (await Promise.all(modules)).slice(-1)
 
   const style = document.createElement('link')
-  style.href = `${baseUrl}app/index.css?min=1`
+  style.href = moduleUrl('/app/index', '.css')
   style.type = 'text/css'
   style.rel = 'stylesheet'
   document.head.appendChild(style)
 
   const node = document.createElement('main')
-  node.setAttribute('id', 'spa-mesh')
+  node.setAttribute('id', mainElementId)
   document.body.appendChild(node)
 
   main({ node })
-})(document.currentScript.src.slice(0, -"index.js?min=1".length)).catch((...err) => console.log(`[${(new Date).toISOString()}] SPA-mesh:`, ...err));
+})(document.currentScript.src.slice(0, -'/index.js'.length)).catch((...err) => console.log(`[${(new Date).toISOString()}] SPA-mesh:`, ...err));

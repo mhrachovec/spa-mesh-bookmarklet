@@ -1,8 +1,8 @@
-import { main, h1, button } from '../components/html.js?min=1'
+import { main, h1, button } from '../components/html.js'
+import { CounterAdd } from '../actions/counter.js'
 
-export const App = state =>
-  main([
-    h1(state),
-    button({ onclick: state => state - 1 }, '-'),
-    button({ onclick: state => state + 1 }, '+')
+export const App = ({ counter }) => main([
+  h1(counter),
+  button({ onclick: [CounterAdd, { amount: -1 }] }, '-'),
+  button({ onclick: [CounterAdd, { amount: +1 }] }, '+')
 ])

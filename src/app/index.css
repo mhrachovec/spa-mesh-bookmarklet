@@ -1,9 +1,8 @@
-#spa-mesh {
-    position: absolute;
-    z-index: 1000;
-    top: 10px;
-    left: 10px;
-    border: red 2px solid;
-    background-color: lightblue;
-  }
-  
+#mwwnxt-spa-mesh {
+  position: absolute;
+  z-index: 1000;
+  top: 10px;
+  left: 10px;
+  border: red 2px solid;
+  background-color: lightblue;
+}
